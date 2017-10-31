@@ -1,0 +1,10 @@
+TESTCASE,ACTION,ACTIONITEMS,EXPECT,EXPECTITEMS,EXPECTVALUE
+testcase_001,login,username:2|password:123456|verifycode:imqa,,,
+testcase_001,switch_system,type:视频,,,
+testcase_001,MENU,menu:order_list,,,
+testcase_001,ORDER_NEW,,,,
+testcase_001,STOCK_QUERY,type:cpm|date:0;1|adr:视频广告.通用位置.通用前贴|area:中国.江苏.南京|exam:1;2;3|throwtype:3|tracker:adbug.ba.1,,,
+testcase_001,STOCK_ADD_ORDER,schedule:0|submit:加入|cpm:1,,,
+testcase_001,ORDER_FILL,name:订单111|adv:六间房|ordertype:2|specialflow:1|submit:提交,,,
+testcase_001,,,ORDER_LIST_VERIFY,column:类型,询量
+testcase_001,,,ORDER_LIST_VERIFY,column:状态,审批中
