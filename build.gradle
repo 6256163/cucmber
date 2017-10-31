@@ -1,5 +1,5 @@
-group 'com.project.spy'
-version '1.0-SNAPSHOT'
+group 'com'
+version '1.0'
 
 apply plugin: 'java'
 
