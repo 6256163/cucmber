@@ -18,17 +18,17 @@ public class HookStep extends BasicStep {
     @Before
     public void setUp(Scenario scenario) throws Exception {
         String browser;
-        if (scenario.getSourceTagNames().contains("@firefox")){
-            context.initDriver("firefox");
+        if (scenario.getSourceTagNames().contains("@chrome")){
+            context.initDriver("chrome");
         }
         else{
-
+            context.initDriver("firefox");
         }
     }
 
     @After
     public void cleanUp() throws Exception{
-        this.driver.quit();
+        this.context.getDriver().quit();
     }
 
 

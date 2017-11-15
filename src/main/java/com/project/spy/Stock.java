@@ -15,7 +15,6 @@ public class Stock extends BasePage{
 
     public Stock(WebDriver driver){
         super(driver);
-
     }
 
 

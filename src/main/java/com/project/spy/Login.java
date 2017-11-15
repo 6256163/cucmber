@@ -19,7 +19,6 @@ public class Login extends BasePage {
     public Login(WebDriver driver) {
         super(driver);
         this.url = "http://10.200.44.60/site/superentrance";
-        PageFactory.initElements(driver, this);
     }
 
 
