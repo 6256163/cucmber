@@ -6,8 +6,8 @@ import cucumber.api.java.en.When;
 
 public class LoginStep extends BasicStep {
 
-    public LoginStep(HookStep hook) {
-        super(hook);
+    public LoginStep(Context context) {
+        super(context);
     }
 
     @When("login user")

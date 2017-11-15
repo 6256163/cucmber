@@ -5,26 +5,21 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources"
+        features = "src/test/resources/Feature"
         ,glue={"com/project/step"}
 )
 public class CucumberTest {
 
-//
-//
-//
+
 //    public static void main(String[] args) {
 //
 //    }
-//
-//
+
 //    @BeforeClass
 //    public void init(){
 //        WebDriver driver = new ChromeDriver();
-//
 //    }
-//
-//
+
 //    @Test
 //    public void main() throws Exception {
 //    }

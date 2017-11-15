@@ -6,8 +6,8 @@ import cucumber.api.java.en.When;
 
 public class OrderStep extends BasicStep {
 
-    public OrderStep(HookStep hook){
-        super(hook);
+    public OrderStep(Context context) {
+        super(context);
     }
 
     @When("new order")

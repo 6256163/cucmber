@@ -1,5 +1,7 @@
+@feature1
 Feature: Create new order
   User can create a new order.
+  #@background1
   Background: login user
 
     When login user
@@ -8,7 +10,7 @@ Feature: Create new order
       |verifycode|imqa|
     And switch system: 视频
 
-
+  @scenario1
   Scenario: Create new order
 
     Given navigate: order_list

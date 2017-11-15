@@ -6,8 +6,8 @@ import cucumber.api.java.en.When;
 
 public class StockStep extends BasicStep {
 
-    public StockStep(HookStep hook){
-        super(hook);
+    public StockStep(Context context) {
+        super(context);
     }
 
     @When("stock query")

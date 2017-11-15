@@ -6,8 +6,8 @@ import cucumber.api.java.en.Given;
 public class NavigationStep extends BasicStep {
 
 
-    public NavigationStep(HookStep hook) {
-        super(hook);
+    public NavigationStep(Context context) {
+        super(context);
     }
 
 

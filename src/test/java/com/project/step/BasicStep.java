@@ -7,11 +7,12 @@ import java.util.Map;
 
 class BasicStep {
 
-    WebDriver driver;
-    HookStep hook;
-    public BasicStep(HookStep hook){
-        this.hook = hook;
-        this.driver = this.hook.getDriver();
+    public WebDriver driver;
+    public Context context;
+
+    public BasicStep(Context context){
+        this.context = context;
+        this.driver = this.context.getDriver();
     }
     Map<String,String> getArgs(DataTable arg){
         return arg.asMap(String.class,String.class);

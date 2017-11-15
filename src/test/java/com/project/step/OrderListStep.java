@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class OrderListStep extends BasicStep {
 
-    public OrderListStep(HookStep hook){
-        super(hook);
+    public OrderListStep(Context context) {
+        super(context);
     }
 
     @Then("check order")
