@@ -1,21 +1,22 @@
 package com.project.step;
 
-import com.project.spy.OrderList;
+import com.project.page.OrderList;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
-public class OrderListStep extends BasicStep {
 
-    public OrderListStep(Context context) {
-        super(context);
-    }
+public class OrderListStep extends BasicStep {
+    @Autowired
+    OrderList orderList;
+
+
 
     @Then("check order")
     public void checkOrder(DataTable args){
-        OrderList orderList = new OrderList(this.driver);
         Map<String, String> m = getArgs(args);
         for (String key : m.keySet()) {
             String expect = m.get(key);

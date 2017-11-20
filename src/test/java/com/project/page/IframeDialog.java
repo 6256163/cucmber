@@ -1,21 +1,16 @@
-package com.project.spy;
+package com.project.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.springframework.stereotype.Component;
 
-public class Iframe extends BasePage {
+@Component
+public class IframeDialog extends BasePage {
 
-    String xpath;
-    Iframe(WebDriver driver, WebElement frame) {
-        super(driver);
-//        List<WebElement> eles = this.driver.findElements(By.xpath("//iframe[@class=\"popupBodyIfr\"]"));
-//        WebElement e = eles.size() != 0 ? eles.get(0) : findElement(By.xpath("//iframe[@class=\"dialogBodyIfr\"]"));
-        switchTo(frame);
-    }
+    @FindBy(xpath = "//iframe[@class=\"dialogBodyIfr\"]")
+    private WebElement iframe;
+
 
     @FindBy(xpath = "//button[@title=\"清空\"]")
     private WebElement clearButton;
@@ -31,6 +26,7 @@ public class Iframe extends BasePage {
 
 
     protected void select(String[] items) {
+        switchTo(iframe);
         if (items.length == 0) {
             click(clearButton);
         }
@@ -47,16 +43,4 @@ public class Iframe extends BasePage {
         click(confirmButton);
     }
 
-
-    protected void search(String item) {
-        input(item, searchInput);
-        new Actions(this.driver).sendKeys(Keys.ENTER).perform();
-        findElement(By.xpath(String.format(
-                "//tbody[last()]/tr/td[3][contains(text(),\"%s\")]/..//input[@name=\"items\"]", item
-        )));
-        click(confirmButton);
-    }
-
-
 }
-

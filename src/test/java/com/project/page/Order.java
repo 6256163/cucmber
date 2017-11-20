@@ -1,17 +1,15 @@
-package com.project.spy;
+package com.project.page;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-public class Order extends BasePage{
-
-    public Order(WebDriver driver) {
-        super(driver);
-    }
+@Component
+public class Order extends BasePage {
 
     @FindBy(linkText = "我要下单")
     public WebElement newOrder;
@@ -40,8 +38,9 @@ public class Order extends BasePage{
     @FindBy(xpath = "//div[@role=\"dialog\"]//button[.=\"关闭\"]")
     private WebElement comfirmDialog;
 
-    @FindBy(xpath = "//iframe[@class=\"popupBodyIfr\"]")
-    private WebElement iframe;
+
+    @Autowired
+    IframePopup ifr;
 
     public void createOrder() {
         waitForDatelistLoading();
@@ -56,7 +55,6 @@ public class Order extends BasePage{
         click(advSelectButton);
         click(advSelectButton);
 
-        Iframe ifr = new Iframe(this.driver, iframe);
         ifr.search(adv);
         this.driver.switchTo().defaultContent();
         while (productLineSelect.getText().equals("")) {

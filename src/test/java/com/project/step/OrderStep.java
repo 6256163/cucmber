@@ -1,29 +1,25 @@
 package com.project.step;
 
-import com.project.spy.Order;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.project.page.Order;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.When;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class OrderStep extends BasicStep {
+    @Autowired
+    Order order;
 
-    public OrderStep(Context context) {
-        super(context);
-    }
 
     @When("new order")
-    public void newOrder(){
-        Order order = new Order(this.driver);
+    public void newOrder() {
         order.createOrder();
     }
 
     @When("fill order")
-    public void fillOrder(DataTable args){
-        Order order = new Order(this.driver);
+    public void fillOrder(DataTable args) {
         order.fill(getArgs(args));
     }
-
-
-
 
 
 }

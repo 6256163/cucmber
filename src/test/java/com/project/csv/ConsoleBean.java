@@ -1,4 +1,4 @@
-package com.project.runByCSV;
+package com.project.csv;
 
 import com.opencsv.bean.CsvBindByName;
 

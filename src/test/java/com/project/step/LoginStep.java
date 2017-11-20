@@ -1,24 +1,25 @@
 package com.project.step;
 
-import com.project.spy.Login;
+
+import com.project.page.Login;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.When;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 public class LoginStep extends BasicStep {
+    @Autowired
+    Login login;
 
-    public LoginStep(Context context) {
-        super(context);
-    }
 
     @When("login user")
     public void loginUser(DataTable args){
-        Login login = new Login(driver);
-        login.login(getArgs(args));
+        assert  args != null;
+        this.login.login(getArgs(args));
     }
 
     @When("switch system: (.*)")
     public void switchSystem(String type){
-        Login login = new Login(driver);
-        login.switchSystem(type);
+        this.login.switchSystem(type);
     }
 }

@@ -1,24 +1,24 @@
-package com.project.spy;
+package com.project.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@Component
 public class OrderList extends BasePage {
 
-
+    @FindBy(tagName = "table")
     private WebElement tab = null;
     private List<WebElement> th = null;
     Map<String,Integer> m = new HashMap<String,Integer>();
 
-    public OrderList(WebDriver driver) {
-        super(driver);
-    }
 
 
     private WebElement getTab(){

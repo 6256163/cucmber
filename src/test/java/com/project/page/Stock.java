@@ -1,31 +1,27 @@
-package com.project.spy;
+package com.project.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
-public class Stock extends BasePage{
-
-    public Stock(WebDriver driver){
-        super(driver);
-    }
+@Component
+public class Stock extends BasePage {
 
 
-    protected void switchChargeType(String type){
-        if(type.toUpperCase().equals("CPT")){
+    protected void switchChargeType(String type) {
+        if (type.toUpperCase().equals("CPT")) {
             type = "CPT库存报表";
-        }
-        else if (type.toUpperCase().equals("CPM")){
+        } else if (type.toUpperCase().equals("CPM")) {
             type = "CPM库存报表";
-        }
-        else{
+        } else {
             type = null;
         }
         click(By.xpath(String.format("//ul[@class=\"page_tabs\"]/li[.=\"%s\"]", type)));
@@ -43,9 +39,6 @@ public class Stock extends BasePage{
 
     @FindBy(css = "button.enter")
     private WebElement dateEnter;
-
-    @FindBy(xpath = "//iframe[@class=\"dialogBodyIfr\"]")
-    private WebElement iframe;
 
     @FindBy(xpath = "//input[@data-bind=\"value: adSlot.ids\"]/following-sibling::button")
     private WebElement adrSelectButton;
@@ -84,86 +77,74 @@ public class Stock extends BasePage{
     private WebElement cpmEnter;
 
 
+    @Autowired
+    IframeDialog sel;
 
 
-    protected void selectDate(String dates){
+    protected void selectDate(String dates) {
         click(datePicker);
         String[] d = dates.split(";");
-        input(int2Date(d[0]),startTime);
-        input(int2Date(d[1]),endTime);
+        input(int2Date(d[0]), startTime);
+        input(int2Date(d[1]), endTime);
         click(dateEnter);
 
     }
 
-    private void select(String items, WebElement e){
-        for(String item: items.split(";")){
+    private void select(String items, WebElement e) {
+        for (String item : items.split(";")) {
             click(e);
-            Iframe sel = new Iframe(this.driver,iframe);
             sel.select(items.split("\\."));
-            this.driver.switchTo().defaultContent();
+            switchTo();
         }
     }
 
-    protected void selectAdr(String items){
-        select(items, adrSelectButton);
-    }
-
-    protected void selectArea(String items){
-        select(items, areaSelectButton);
-    }
-
-    protected void selectContent(String items){
-        select(items, contentSelectButton);
-    }
-
-    protected void selectPort(String ports){
+    protected void selectPort(String ports) {
         click(portLabel);
-        for(String p: ports.split(";")){
+        for (String p : ports.split(";")) {
             portLabel.findElement(By.xpath(String.format("//li[@data-search-term=\"%s\"]", p))).click();
         }
         portLabel.click();
     }
 
-    protected void selectThrowTime(String times){
+    protected void selectThrowTime(String times) {
         click(timeLabel);
-        for(String p: times.split(";")){
+        for (String p : times.split(";")) {
             timeLabel.findElement(By.xpath(String.format("ancestor::td//input[@value=\"%s\"]", p))).click();
         }
         timeLabel.click();
     }
 
-    protected void selectExam(String exam){
+    protected void selectExam(String exam) {
         // select exam "无"
-        if (exam.equals("0")){
+        if (exam.equals("0")) {
             click(exameDisable);
-        }
-        else{
+        } else {
             // select exam "有"
             click(exameEnable);
             String[] es = exam.split(";");
-            for(String e : es){
+            for (String e : es) {
                 // select exam detail
                 click(By.xpath(String.format("//ul[@class=\"followingExam_items\"]//input[@value=\"%s\"]", e)));
             }
-            if (exam.contains("-2")){
+            if (exam.contains("-2")) {
                 // input 'click rate'
                 input("111", exameClickRate);
             }
-            if (exam.contains("-1")){
+            if (exam.contains("-1")) {
                 // input 'others'
                 input("其他", exameOthers);
             }
         }
     }
 
-    protected void selectThrowType(String type){
+    protected void selectThrowType(String type) {
         Select select = new Select(thorwTypeSelect);
         select.selectByValue(type);
     }
 
-    protected void selectTracker(String tracker)  {
+    protected void selectTracker(String tracker) {
         String[] trackers = tracker.split(";");
-        for (String t : trackers){
+        for (String t : trackers) {
             String[] ts = t.split("\\.");
 
             // select parent tracker
@@ -171,10 +152,10 @@ public class Stock extends BasePage{
             sleep(1);
 
             // select child tracker
-            if (!ts[1].equals("")){
+            if (!ts[1].equals("")) {
                 click(By.cssSelector(String.format("div.tracker_item_more_%s div.tracker_item_product div.mcpp-list", ts[0])));
                 sleep(1);
-                click(By.cssSelector(String.format("div.mcpp-wrapper input[value=\"%s:%s\"]", ts[0],ts[1])));
+                click(By.cssSelector(String.format("div.mcpp-wrapper input[value=\"%s:%s\"]", ts[0], ts[1])));
                 sleep(1);
             }
 
@@ -188,12 +169,11 @@ public class Stock extends BasePage{
     }
 
 
-    protected void switchMode(String mode){
-        if (mode.equals("下单")){
-            mode= "mode_select";
-        }
-        else if(mode.equals("查询")){
-            mode= "mode_view";
+    protected void switchMode(String mode) {
+        if (mode.equals("下单")) {
+            mode = "mode_select";
+        } else if (mode.equals("查询")) {
+            mode = "mode_view";
         }
 
         click(By.xpath(String.format("//label[@for=\"%s\"]", mode)));
@@ -202,33 +182,32 @@ public class Stock extends BasePage{
     }
 
 
-    protected void selectSchedule(String sche){
+    protected void selectSchedule(String sche) {
         click(By.xpath("//label[@for=\"mode_select\"]"));
         sleep(1);
-        for(String s: sche.split(";")){
+        for (String s : sche.split(";")) {
             click(By.cssSelector(String.format("tbody.ui-selectable tr td[data-index=\"%s\"]", s)));
         }
     }
 
-    protected void selectOrder(String order){
+    protected void selectOrder(String order) {
         Select select = new Select(findElement(By.cssSelector("select.campaign_list")));
         select.selectByVisibleText(order);
     }
 
-    protected void submit(String submit){
-        if (submit.equals("加入")){
-            submit= "createNewBtn";
-        }
-        else if(submit.equals("编辑")){
-            submit= "editOneBtn";
+    protected void submit(String submit) {
+        if (submit.equals("加入")) {
+            submit = "createNewBtn";
+        } else if (submit.equals("编辑")) {
+            submit = "editOneBtn";
         }
 
         click(By.id(submit));
 
     }
 
-    protected void inputCPM(String cpm){
-        input(cpm,cpmInput);
+    protected void inputCPM(String cpm) {
+        input(cpm, cpmInput);
         click(cpmEnter);
     }
 
@@ -236,34 +215,34 @@ public class Stock extends BasePage{
     public void query(Map<String, String> args) {
         waitForAjaxLoading();
 
-        if (!args.getOrDefault("type","").equals("")){
+        if (!args.getOrDefault("type", "").equals("")) {
             switchChargeType(args.get("type"));
         }
-        if (!args.getOrDefault("date","").equals("")){
+        if (!args.getOrDefault("date", "").equals("")) {
             selectDate(args.get("date"));
         }
-        if (!args.getOrDefault("adr","").equals("")){
-            selectAdr(args.get("adr"));
+        if (!args.getOrDefault("adr", "").equals("")) {
+            select(args.get("adr"), adrSelectButton);
         }
-        if (!args.getOrDefault("area","").equals("")){
-            selectArea(args.get("area"));
+        if (!args.getOrDefault("area", "").equals("")) {
+            select(args.get("area"), areaSelectButton);
         }
-        if (!args.getOrDefault("port","").equals("")){
+        if (!args.getOrDefault("port", "").equals("")) {
             selectPort(args.get("port"));
         }
-        if (!args.getOrDefault("content","").equals("")){
-            selectContent(args.get("content"));
+        if (!args.getOrDefault("content", "").equals("")) {
+            select(args.get("content"), contentSelectButton);
         }
-        if (!args.getOrDefault("time","").equals("")){
+        if (!args.getOrDefault("time", "").equals("")) {
             selectThrowTime(args.get("time"));
         }
-        if (!args.getOrDefault("exam","").equals("")){
+        if (!args.getOrDefault("exam", "").equals("")) {
             selectExam(args.get("exam"));
         }
-        if (!args.getOrDefault("throwtype","").equals("")){
+        if (!args.getOrDefault("throwtype", "").equals("")) {
             selectThrowType(args.get("throwtype"));
         }
-        if (!args.getOrDefault("tracker","").equals("")){
+        if (!args.getOrDefault("tracker", "").equals("")) {
             selectTracker(args.get("tracker"));
         }
         click(By.cssSelector("button.submitBtn"));
@@ -272,30 +251,29 @@ public class Stock extends BasePage{
     }
 
 
-    public void addOrder(Map<String, String> args){
+    public void addOrder(Map<String, String> args) {
 
-        if (!args.getOrDefault("schedule","").equals("")){
+        if (!args.getOrDefault("schedule", "").equals("")) {
             selectSchedule(args.get("schedule"));
         }
-        if (!args.getOrDefault("order","").equals("")){
+        if (!args.getOrDefault("order", "").equals("")) {
             selectOrder(args.get("order"));
         }
-        if (!args.getOrDefault("submit","").equals("")){
+        if (!args.getOrDefault("submit", "").equals("")) {
             submit(args.get("submit"));
         }
-        if (!args.getOrDefault("cpm","").equals("")){
+        if (!args.getOrDefault("cpm", "").equals("")) {
             inputCPM(args.get("cpm"));
         }
     }
 
-    private String int2Date(String d){
+    private String int2Date(String d) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar now = Calendar.getInstance();
-        now.add(Calendar.DATE,Integer.parseInt(d));
+        now.add(Calendar.DATE, Integer.parseInt(d));
         Date date = now.getTime();
         return sdf.format(date);
     }
-
 
 
 }

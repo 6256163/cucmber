@@ -1,7 +1,8 @@
-package com.project.runByCSV;
+package com.project.csv;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,8 +13,11 @@ public class Runner {
 
     private String tcFolder;
     private String console;
+    @Autowired
     private WebDriver driver;
-    Runner(String tcFolder,String consoleFileDir){
+    @Autowired
+    private Execution exe;
+    public Runner(String tcFolder, String consoleFileDir){
         this.tcFolder=tcFolder;
         this.console=consoleFileDir;
     }
@@ -22,11 +26,9 @@ public class Runner {
                 .withType(ConsoleBean.class).build().parse();
         for(ConsoleBean line: console){
             if (line.IS_ACTIVE){
-                this.driver = new Driver().getDriver(line.BROWSER);
                 String tc_dir = Paths.get(this.tcFolder,line.TESTCASE+".csv").toString();
                 List<TestcaseBean> tc = new CsvToBeanBuilder(new FileReader(tc_dir))
                         .withType(TestcaseBean.class).build().parse();
-                Execution exe = new Execution(this.driver);
                 for (TestcaseBean step: tc){
                     try{
                         exe.action(step.ACTION,step.ACTIONITEMS);

@@ -1,17 +1,16 @@
-package com.project.spy;
+package com.project.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Menu extends BasePage{
+@Component
+public class Menu extends BasePage {
 
     private Map<String,By[]> map = new HashMap<String,By[]>();
-    public Menu(WebDriver driver) {
-        super(driver);
-
+    public Menu() {
         this.map.put("index", new By[]{By.partialLinkText("首页")});
         this.map.put("order", new By[]{By.partialLinkText("订单管理")});
         this.map.put("order_list", new By[]{map.get("order")[0], By.partialLinkText("订单列表")});
@@ -32,9 +31,7 @@ public class Menu extends BasePage{
         this.map.put("suning", new By[]{By.partialLinkText("易购资源")});
         this.map.put("stock_report", new By[]{map.get("suning")[0], By.partialLinkText("库存报表")});
         this.map.put("price_policy", new By[]{map.get("suning")[0], By.partialLinkText("价格政策管理")});
-
     }
-
 
 
     public void clickMenu(String menuName){

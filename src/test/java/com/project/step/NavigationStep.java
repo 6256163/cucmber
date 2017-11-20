@@ -1,19 +1,16 @@
 package com.project.step;
 
-import com.project.spy.Menu;
+
+import com.project.page.Menu;
 import cucumber.api.java.en.Given;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class NavigationStep extends BasicStep {
-
-
-    public NavigationStep(Context context) {
-        super(context);
-    }
-
+    @Autowired
+    Menu menu;
 
     @Given("navigate: (.*)")
     public void navigate(String menu) {
-        Menu m = new Menu(driver);
-        m.clickMenu(menu);
+        this.menu.clickMenu(menu);
     }
 }

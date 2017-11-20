@@ -1,35 +1,34 @@
-package com.project.runByCSV;
+package com.project.csv;
 
-import com.project.spy.*;
-import org.openqa.selenium.WebDriver;
+import com.project.page.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Execution{
-
+@Component
+public class Execution {
+    @Autowired
     private Login login;
+    @Autowired
     private Menu menu;
+    @Autowired
     private Order order;
+    @Autowired
     private OrderList orderList;
-    private Stock sotck;
+    @Autowired
+    private Stock stock;
 
-    public Execution(WebDriver driver){
-        this.login = new Login(driver);
-        this.menu = new Menu(driver);
-        this.order = new Order(driver);
-        this.orderList = new OrderList(driver);
-        this.sotck = new Stock(driver);
-    }
 
     protected void action(String action, String args) throws InterruptedException {
 
         // process args for ACTION
-        Map<String,String> actionItems = getArgs(args);
+        Map<String, String> actionItems = getArgs(args);
 
         // execute ACTION
-        action = action == null?"":action.toUpperCase();
-        switch (action.toUpperCase()){
+        action = action == null ? "" : action.toUpperCase();
+        switch (action.toUpperCase()) {
 
             case "SWITCH_SYSTEM":
                 this.login.switchSystem(actionItems.get("type"));
@@ -44,10 +43,10 @@ public class Execution{
                 this.order.createOrder();
                 break;
             case "STOCK_QUERY":
-                this.sotck.query(actionItems);
+                this.stock.query(actionItems);
                 break;
             case "STOCK_ADD_ORDER":
-                this.sotck.addOrder(actionItems);
+                this.stock.addOrder(actionItems);
                 break;
             case "ORDER_FILL":
                 this.order.fill(actionItems);
@@ -55,30 +54,30 @@ public class Execution{
         }
     }
 
-    protected void expect(String expect, String args, String expectValue){
+    protected void expect(String expect, String args, String expectValue) {
 
         // process args for EXPECT
-        Map<String,String> expectItems = getArgs(args);
+        Map<String, String> expectItems = getArgs(args);
 
         // execute EXPECT
         String actualValue = null;
-        expect = expect == null?"":expect.toUpperCase();
-        switch (expect){
+        expect = expect == null ? "" : expect.toUpperCase();
+        switch (expect) {
             case "ORDER_LIST_VERIFY":
                 actualValue = this.orderList.verify(expectItems.get("column"));
 
         }
-        assert actualValue!=null||actualValue.equals(expectValue):
-                String.format("Expect: %s. Actual: %s", expectValue,actualValue);
+        assert actualValue != null || actualValue.equals(expectValue) :
+                String.format("Expect: %s. Actual: %s", expectValue, actualValue);
 
     }
 
-    private Map<String,String> getArgs(String args){
-        Map<String,String> actionItems = new HashMap<String,String>();
-        if(args!=null){
-            for (String item : args.split("\\|")){
+    private Map<String, String> getArgs(String args) {
+        Map<String, String> actionItems = new HashMap<String, String>();
+        if (args != null) {
+            for (String item : args.split("\\|")) {
                 String[] items = item.split(":");
-                actionItems.put(items[0].toLowerCase(),items[1]);
+                actionItems.put(items[0].toLowerCase(), items[1]);
             }
         }
         return actionItems;

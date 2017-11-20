@@ -1,26 +1,17 @@
-package com.project.spy;
+package com.project.page;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+@Component
 public class Login extends BasePage {
 
-    String url = "";
-
-    public Login(WebDriver driver, String url) {
-        super(driver);
-        this.url = url;
-    }
-
-    public Login(WebDriver driver) {
-        super(driver);
-        this.url = "http://10.200.44.60/site/superentrance";
-    }
-
+    @Value("${login.url}")
+    String url;
 
     @FindBy(id="LoginForm_username")
     private WebElement usernameInput;
