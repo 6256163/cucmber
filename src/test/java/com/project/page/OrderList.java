@@ -58,6 +58,7 @@ public class OrderList extends BasePage {
     }
 
     public String verify(String columns){
+        sleep(2);
         List<WebElement> tds = getLine();
         int i=0;
         if (this.m.size()==0){

@@ -84,6 +84,7 @@ public class Order extends BasePage {
 
 
     public void fill(Map<String, String> args) {
+        sleep(2);
         if (!args.getOrDefault("name","").equals("")){
             inputName(args.get("name"));
         }
