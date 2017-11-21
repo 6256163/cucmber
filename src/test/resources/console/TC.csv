@@ -1,5 +1,0 @@
-TESTCASE,NODE,BROWSER,IS_ACTIVE
-Example1,127.0.0.1,Firefox,True
-Example2,192.168.0.1,chrome,False
-Example3,192.168.0.2,IE,False
-Example4,192.168.0.3,Opera,False
