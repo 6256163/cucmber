@@ -1,7 +1,9 @@
 build
 out
-.gradle
 .idea
+
+.gradle
 gradle
-gradlew
-gradlew.bat
+selenium-cucmber.iml
+selenium-cucmber.ipr
+selenium-cucmber.iws
