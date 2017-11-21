@@ -23,5 +23,4 @@ dependencies {
 
 }
 
-test { systemProperty "spring.profiles.active", "firefox" }
-
+//test { systemProperty "spring.profiles.active", System.properties['spring.profiles.active'] }
