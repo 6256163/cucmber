@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'ubuntu:16.04'
-    }
-    
-  }
+  agent none
   stages {
     stage('TEST') {
       parallel {
@@ -16,6 +11,11 @@ pipeline {
         stage('component') {
           steps {
             sh 'echo COMPONENT'
+          }
+        }
+        stage('whoami') {
+          steps {
+            sh 'whoami'
           }
         }
       }
