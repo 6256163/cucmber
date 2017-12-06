@@ -5,17 +5,21 @@ pipeline {
       parallel {
         stage('unit') {
           steps {
-            sh 'echo UNIT'
+            sh '''whoami
+echo UNIT'''
           }
         }
         stage('component') {
           steps {
-            sh 'echo COMPONENT'
+            sh '''whoami
+echo COMPONENT'''
           }
         }
         stage('Build') {
           steps {
-            sh 'sudo docker pull ubuntu'
+            sh '''whoami
+sudo docker pull ubuntu
+whoami'''
           }
         }
       }
