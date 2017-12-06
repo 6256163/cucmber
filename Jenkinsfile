@@ -6,20 +6,9 @@ pipeline {
     
   }
   stages {
-    stage('TEST') {
-      parallel {
-        stage('unit') {
-          steps {
-            sh '''whoami
-echo UNIT'''
-          }
-        }
-        stage('component') {
-          steps {
-            sh '''whoami
-echo COMPONENT'''
-          }
-        }
+    stage('unit') {
+      steps {
+        sh 'echo UNIT'
       }
     }
     stage('BROWSER') {
