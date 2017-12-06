@@ -1,33 +1,40 @@
 pipeline {
   agent {
     docker {
-      image 'ubuntu:16.04'
+      image 'gradle:4.3.1-jdk8-alpine'
     }
     
   }
   stages {
     stage('unit') {
       steps {
-        sh 'echo UNIT'
+        sh '''cd ${workspace}
+pwd'''
       }
     }
     stage('BROWSER') {
       parallel {
         stage('chrome') {
           steps {
-            sh 'echo CHROME'
+            sh '''echo CHROME
+cd ${workspace}
+pwd'''
           }
         }
         stage('firefox') {
           steps {
-            sh 'echo FIREFOX'
+            sh '''echo FIREFOX
+cd ${workspace}
+pwd'''
           }
         }
       }
     }
     stage('DEPLOYMENT') {
       steps {
-        sh 'echo DEPLOYMENT'
+        sh '''echo DEPLOYMENT
+cd ${workspace}
+pwd'''
       }
     }
   }
