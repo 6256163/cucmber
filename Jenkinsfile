@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
   stages {
     stage('TEST') {
       parallel {
@@ -13,9 +13,9 @@ pipeline {
             sh 'echo COMPONENT'
           }
         }
-        stage('whoami') {
+        stage('Build') {
           steps {
-            sh 'whoami'
+            sh 'sudo docker pull ubuntu'
           }
         }
       }
