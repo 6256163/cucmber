@@ -18,11 +18,6 @@ pipeline {
             sh 'echo COMPONENT'
           }
         }
-        stage('Build') {
-          steps {
-            sh 'sudo docker pull ubuntu'
-          }
-        }
       }
     }
     stage('BROWSER') {
