@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'ubuntu'
-      args '-u root:sudo'
+      args '-v $HOME/workspace/selenium-cucmber:/selenium-cucmber'
     }
     
   }
