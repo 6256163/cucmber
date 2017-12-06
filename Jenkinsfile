@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'ubuntu'
-    }
-    
-  }
+  agent any
   stages {
     stage('TEST') {
       parallel {
@@ -16,6 +11,11 @@ pipeline {
         stage('component') {
           steps {
             sh 'echo COMPONENT'
+          }
+        }
+        stage('Build') {
+          steps {
+            sh 'sudo docker pull ubuntu'
           }
         }
       }
