@@ -9,14 +9,18 @@ pipeline {
   stages {
     stage('unit') {
       steps {
-        sh 'gradle --version'
+        sh '''gradle --version
+
+docker run -d -P --name selenium-hub -e GRID_TIMEOUT=10 selenium/hub'''
       }
     }
     stage('BROWSER') {
       parallel {
         stage('chrome') {
           steps {
-            sh '''echo CHROME;
+            sh '''docker run 
+
+echo CHROME;
 cd "${workspace}";
 pwd;
 cd "$WORKSPACE";
@@ -26,7 +30,10 @@ pwd;'''
         stage('firefox') {
           steps {
             sh '''cd /home/gradle/project;
-ls;'''
+ls;
+
+docker run -d --link selenium-hub:hub selenium/node-firefox;
+'''
           }
         }
       }
