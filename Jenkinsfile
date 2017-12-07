@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'gradle:4.3.1-jdk8-alpine'
-      args '-v "$PWD":/home/gradle/project'
+      args '-v "$WORKSPACE":/home/gradle/project'
     }
     
   }
@@ -16,9 +16,11 @@ pipeline {
       parallel {
         stage('chrome') {
           steps {
-            sh '''echo CHROME
-cd ${workspace}
-pwd'''
+            sh '''echo CHROME;
+cd "${workspace}";
+pwd;
+cd "$WORKSPACE";
+pwd;'''
           }
         }
         stage('firefox') {
