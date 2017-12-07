@@ -1,11 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'gradle:4.3.1-jdk8-alpine'
-      args '-v "$WORKSPACE":/home/gradle/project'
-    }
-    
-  }
+  agent any
   stages {
     stage('unit') {
       steps {
