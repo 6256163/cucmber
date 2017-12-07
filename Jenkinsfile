@@ -2,14 +2,14 @@ pipeline {
   agent {
     docker {
       image 'gradle:4.3.1-jdk8-alpine'
+      args '-v "$PWD":/home/gradle/project'
     }
     
   }
   stages {
     stage('unit') {
       steps {
-        sh '''cd ${workspace}
-pwd'''
+        sh 'gradle --version'
       }
     }
     stage('BROWSER') {
