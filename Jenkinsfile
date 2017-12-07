@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('unit') {
       steps {
-        sh '''gradle --version
-
+        sh '''
 docker run -d -P --name selenium-hub -e GRID_TIMEOUT=10 selenium/hub'''
       }
     }
