@@ -11,8 +11,7 @@ docker run -d -P --name selenium-hub -e GRID_TIMEOUT=10 selenium/hub'''
       parallel {
         stage('chrome') {
           steps {
-            sh '''docker run 
-
+            sh '''
 echo CHROME;
 cd "${workspace}";
 pwd;
@@ -22,9 +21,7 @@ pwd;'''
         }
         stage('firefox') {
           steps {
-            sh '''cd /home/gradle/project;
-ls;
-
+            sh '''
 docker run -d --link selenium-hub:hub selenium/node-firefox;
 '''
           }
