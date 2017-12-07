@@ -23,9 +23,8 @@ pwd'''
         }
         stage('firefox') {
           steps {
-            sh '''echo FIREFOX
-cd ${workspace}
-pwd'''
+            sh '''cd /home/gradle/project;
+gradle test --Dspring.avtive.profile=firefox;'''
           }
         }
       }
